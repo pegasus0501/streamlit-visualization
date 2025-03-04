@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import folium
 from streamlit_folium import folium_static
+import json
+import streamlit as st
 from google.cloud import bigquery
 import googlemaps
 import json
@@ -11,7 +13,8 @@ import json
 # Load BigQuery Data
 @st.cache_data
 def load_data():
-    client = bigquery.Client.from_service_account_json("bigquery-key.json")  # Replace with actual JSON key file
+    bigquery_key = json.loads(st.secrets["bigquery_key"])
+    client = bigquery.Client.from_service_account_info(bigquery_key)  # Replace with actual JSON key file
     query = """
     SELECT * FROM san_jose_fire_incidents.fire_incidents_2024
     """
