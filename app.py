@@ -13,7 +13,7 @@ import json
 # Load BigQuery Data
 @st.cache_data
 def load_data():
-    bigquery_key = json.loads(json.dumps(st.secrets["bigquery_key"]))
+    bigquery_key = dict(st.secrets["bigquery_key"])
     client = bigquery.Client.from_service_account_info(bigquery_key)  # Replace with actual JSON key file
     query = """
     SELECT * FROM san_jose_fire_incidents.fire_incidents_2024
